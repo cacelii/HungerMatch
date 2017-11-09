@@ -1,0 +1,41 @@
+{
+  "name": "HungerMatch",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "react-native-scripts": "1.7.0",
+    "jest-expo": "^22.0.0",
+    "react-test-renderer": "16.0.0-beta.5"
+  },
+  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
+  "scripts": {
+    "start-dev": "react-native-scripts start",
+    "start": "nodemon server/index.js",
+    "eject": "react-native-scripts eject",
+    "android": "react-native-scripts android",
+    "ios": "react-native-scripts ios",
+    "test": "node node_modules/jest/bin/jest.js --watch"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "chalk": "^2.3.0",
+    "expo": "^22.0.2",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "path": "^0.12.7",
+    "react": "16.0.0-beta.5",
+    "react-fontawesome": "^1.6.1",
+    "react-native": "^0.49.5",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-persist": "^5.3.3",
+    "redux-thunk": "^2.2.0",
+    "sequelize": "^4.22.5",
+    "watchman": "^0.1.8",
+    "yelp-fusion": "^1.0.3"
+  }
+}
