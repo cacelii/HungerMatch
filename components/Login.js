@@ -67,7 +67,11 @@ class Login extends Component {
           />
         </View>
         <View style={{ margin: 7 }} />
-        <Button onPress={evt => this.userLogin(evt)} title={this.state.route} />
+        {/*<Button onPress={evt => this.userLogin(evt)} title={this.state.route} />*/}
+        <Button
+          onPress={() => this.props.navigation.navigate('Home')}
+          title="Login"
+        />
         <Text
           style={{ fontSize: 16, color: 'blue' }}
           onPress={evt => this.toggleRoute(evt)}

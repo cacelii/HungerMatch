@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import { ScrollView, Text, View, Button, StyleSheet } from 'react-native';
 import { logout } from '../store/auth';
 
-class Secured extends Component {
+class Home extends Component {
   userLogout(evt) {
     this.props.onLogout();
     evt.preventDefault();
   }
 
   render() {
+    const { navigate, username } = this.props.navigation;
     const styles = StyleSheet.create({
       container: {
         flex: 1,
@@ -25,17 +26,18 @@ class Secured extends Component {
     });
     return (
       <ScrollView style={{ padding: 20 }}>
-        <Text style={{ fontSize: 30 }}>{`Welcome ${this.props.username}`}</Text>
+        <Text style={{ fontSize: 30 }}>{`Welcome ${username}`}</Text>
         <Text style={{ fontSize: 25 }}>What are you craving?</Text>
         <View style={styles.container}>
-          <Button onPress={evt => console.log(evt)} title="sweet" />
-          <Button onPress={evt => console.log(evt)} title="spicy" />
-          <Button onPress={evt => console.log(evt)} title="salty" />
-          <Button onPress={evt => console.log(evt)} title="sour" />
-          <Button onPress={evt => console.log(evt)} title="umami" />
+          <Button onPress={() => navigate('Spicy')} title="spicy" />
+          <Button onPress={() => navigate('Sweet')} title="sweet" />
+          <Button onPress={() => navigate('Salty')} title="salty" />
+          <Button onPress={() => navigate('Sour')} title="sour" />
+          <Button onPress={() => navigate('Umami')} title="umami" />
         </View>
         <View style={styles.logout}>
-          <Button onPress={evt => this.userLogout(evt)} title="Logout" />
+          {/*<Button onPress={evt => this.userLogout(evt)} title="Logout" />*/}
+          <Button onPress={() => navigate('Login')} title="Logout" />
         </View>
       </ScrollView>
     );
@@ -56,4 +58,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Secured);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
