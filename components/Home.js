@@ -37,7 +37,7 @@ class Home extends Component {
         <Text
           style={{ fontSize: 30, textAlign: 'center', marginBottom: 8 }}
         >{`Welcome, ${username}!`}</Text>
-        <Text style={{ fontSize: 27, textAlign: 'center', color: 'maroon' }}>
+        <Text style={{ fontSize: 27, textAlign: 'center', color: 'crimson' }}>
           What are you craving?
         </Text>
         <View style={styles.container}>
