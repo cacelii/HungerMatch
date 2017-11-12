@@ -1,38 +1,45 @@
 import React, { Component } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ListView,
+  Linking,
+  TouchableOpacity
+} from 'react-native';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import { fetchSpicyMatches } from '../store/matches';
 
-const Matches = props => {
-  return (
-    <div>
-      <h1>Matches</h1>
-      <div>
-        {props.matches.map(match => (
-          <div key={match.id}>
-            <div>
-              <h2>{match.name}</h2>
-            </div>
-            <div>
-              <h2>${match.rating} </h2>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const mapState = state => {
-  return {
-    matches: state.matches
-  };
-};
-
-const mapDispatch = dispatch => ({
-  getSpicyMatches() {
-    dispatch(fetchSpicyMatches());
+class Matches extends Component {
+  render() {
+    console.log('Matches -->', this.props.matches);
+    return (
+      <View>
+        <Text>Matches</Text>
+        {/*
+          <View>
+            {this.props.matches.businesses.map(match => (
+              <View key={match.id}>
+                <View>
+                  <Text>{match.name}</Text>
+                </View>
+                <View>
+                  <Text>{match.rating} </Text>
+                </View>
+              </View>
+            ))}
+          </View>
+          */}
+      </View>
+    );
   }
+}
+
+const mapState = state => ({
+  matches: state.matches
 });
 
-export default withRouter(connect(mapState, mapDispatch)(Matches));
+const mapDispatch = dispatch => ({});
+
+export default connect(mapState, mapDispatch)(Matches);

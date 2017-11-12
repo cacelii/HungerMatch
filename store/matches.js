@@ -6,8 +6,9 @@ const fetch = matches => ({ type: FETCH, matches });
 
 export const fetchSpicyMatches = () => dispatch =>
   axios
-    .get('/yelp/spicy')
+    .get('172.16.27.106/yelp/spicy')
     .then(res => {
+      console.log('YELP ', res);
       dispatch(fetch(res.data));
     })
     .catch(err => console.log(err));

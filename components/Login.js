@@ -11,18 +11,13 @@ import {
 import { login, signup } from '../store/auth';
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       route: 'Login',
       username: '',
       password: ''
     };
-  }
-
-  userLogin(evt) {
-    this.props.onLogin(this.state.username, this.state.password);
-    evt.preventDefault();
   }
 
   toggleRoute(evt) {
@@ -48,32 +43,39 @@ class Login extends Component {
       <ScrollView style={styles.container}>
         <View style={styles.center}>
           <Text style={{ fontSize: 27 }}>{this.state.route}</Text>
-          <TextInput
-            placeholder="Username"
-            autoCapitalize="none"
-            autoCorrect={false}
-            autoFocus={true}
-            keyboardType="email-address"
-            value={this.state.username}
-            onChangeText={text => this.setState({ username: text })}
-          />
-          <TextInput
-            placeholder="Password"
-            autoCapitalize="none"
-            autoCorrect={false}
-            secureTextEntry={true}
-            value={this.state.password}
-            onChangeText={text => this.setState({ password: text })}
-          />
+          <View style={{ marginTop: 15 }}>
+            <TextInput
+              placeholder="Username"
+              autoCapitalize="none"
+              autoCorrect={false}
+              autoFocus={true}
+              keyboardType="email-address"
+              value={this.state.username}
+              onChangeText={text => this.setState({ username: text })}
+            />
+            <TextInput
+              placeholder="Password"
+              autoCapitalize="none"
+              autoCorrect={false}
+              secureTextEntry={true}
+              value={this.state.password}
+              onChangeText={text => this.setState({ password: text })}
+            />
+          </View>
         </View>
         <View style={{ margin: 7 }} />
         {/*<Button onPress={evt => this.userLogin(evt)} title={this.state.route} />*/}
-        <Button
-          onPress={() => this.props.navigation.navigate('Home')}
-          title="Login"
-        />
+        {
+          <Button
+            onPress={() => {
+              this.props.onLogin(this.state.username, this.state.password);
+              this.props.navigation.navigate('Home');
+            }}
+            title={this.state.route}
+          />
+        }
         <Text
-          style={{ fontSize: 16, color: 'blue' }}
+          style={{ fontSize: 16, color: 'blue', textAlign: 'center' }}
           onPress={evt => this.toggleRoute(evt)}
         >
           {alt}
