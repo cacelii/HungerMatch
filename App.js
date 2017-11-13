@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
 import { Provider } from 'react-redux';
-import Navigator from './components/Navigator';
-import store from './store/index.js';
+import Navigator from './client/components/Navigator';
+import store from './client/store';
 
 export default class HungerMatch extends Component {
   render() {

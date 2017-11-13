@@ -2,13 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ScrollView, Text, View, Button, StyleSheet } from 'react-native';
 import { logout } from '../store/auth';
-import { fetchSpicyMatches } from '../store/matches';
 
 class Home extends Component {
-  componentDidMount() {
-    console.log('Spicy ', this.props.getSpicyMatches());
-  }
-
   userLogout(evt) {
     this.props.onLogout();
     evt.preventDefault();
@@ -23,10 +18,10 @@ class Home extends Component {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 50
+        margin: 35
       },
       logout: {
-        marginTop: 50,
+        marginTop: 35,
         backgroundColor: 'skyblue',
         borderWidth: 2,
         borderColor: 'steelblue'
@@ -66,9 +61,6 @@ const mapDispatchToProps = dispatch => {
   return {
     onLogout: () => {
       dispatch(logout());
-    },
-    getSpicyMatches() {
-      dispatch(fetchSpicyMatches());
     }
   };
 };

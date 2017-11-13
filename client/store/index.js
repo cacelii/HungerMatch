@@ -2,11 +2,9 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { persistStore } from 'redux-persist';
 import auth from './auth';
-import matches from './matches';
 
 const rootReducer = combineReducers({
-  auth,
-  matches
+  auth
 });
 
 // Add the thunk middleware to our store

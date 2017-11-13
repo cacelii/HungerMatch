@@ -1,23 +1,52 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import { fetchSpicyMatches } from '../store/matches';
+import Yelp from 'v3-yelp-api';
+import secrets from '../../secrets';
 
 class Flavors extends Component {
+  constructor() {
+    super();
+    this.state = {
+      position: ''
+    };
+  }
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({ position });
       },
-      error => alert(error),
+      error => console.error(error),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
-    console.log('position ', this.props.position.coords);
   }
 
-  // let { latitude, longitude } = this.props.position.coords;
+  fetchMatches() {
+    console.log('location', this.state.position.coords);
+    const credentials = {
+      appId: process.env.YELP_CLIENT_ID,
+      appSecret: process.env.YELP_CLIENT_SECRET
+    };
 
-  // let latlong = `${String(latitude)},${String(longitude)}`;
+    // console logging the actual object YelpApi led to the solve
+    const yelp = new Yelp(credentials);
+
+    let { latitude, longitude } = this.state.position.coords;
+
+    let latlong = String(latitude) + ',' + String(longitude);
+    let params = {
+      term: this.props.name,
+      location: '40.705132,-74.009258',
+      limit: '3'
+    };
+
+    return yelp
+      .search(params)
+      .then(results => {
+        this.props.navigation.navigate('Matches', { data: results });
+      })
+      .catch(err => err);
+  }
 
   render() {
     const styles = StyleSheet.create({
@@ -48,9 +77,9 @@ class Flavors extends Component {
                 padding: 10,
                 backgroundColor: 'aquamarine'
               }}
-              onPress={() => this.props.navigation.navigate('Matches')}
+              onPress={this.fetchMatches.bind(this)}
             >
-              <Text style={{ fontSize: 15 }}>{`Find me ${this.props
+              <Text style={{ fontSize: 15 }}>{`Give me ${this.props
                 .name}!`}</Text>
             </TouchableOpacity>
           }
@@ -63,7 +92,6 @@ class Flavors extends Component {
 const mapSpicy = state => ({
   name: 'spicy',
   displayName: 'Spice me up!',
-  position: '',
   image:
     'https://assets3.thrillist.com/v1/image/1668698/size/tmg-article_default_mobile.jpg'
 });
@@ -71,7 +99,6 @@ const mapSpicy = state => ({
 const mapSweet = state => ({
   name: 'sweet',
   displayName: 'Sweet as',
-  position: '',
   image:
     'http://hyhoi.com/wp-content/uploads/2014/05/f-sweet-magnolia-bakery-bleecker-street-cupcake-shop-chocolate-cakes-favorite-desserts.jpg'
 });
@@ -79,7 +106,6 @@ const mapSweet = state => ({
 const mapSalty = state => ({
   name: 'salty',
   displayName: 'More salt please',
-  position: '',
   image:
     'http://www.womenfitness.net/wp/wp-content/uploads/2017/06/foods-encourage2-1000x667.jpg'
 });
@@ -87,7 +113,6 @@ const mapSalty = state => ({
 const mapSour = state => ({
   name: 'sour',
   displayName: 'Love me some sour',
-  position: '',
   image:
     'https://qph.ec.quoracdn.net/main-qimg-f571aae41744d5bc520eade65e2325a4-c'
 });
@@ -95,16 +120,11 @@ const mapSour = state => ({
 const mapUmami = state => ({
   name: 'umami',
   displayName: 'Umami what?',
-  position: '',
   image:
     'https://media1.fdncms.com/pique/imager/the-fifth-taste-umami-is-a-controve/u/zoom/2656698/food_epicrious1-1.jpg'
 });
 
-const mapDispatch = dispatch => ({
-  getSpicyMatches() {
-    dispatch(fetchSpicyMatches());
-  }
-});
+const mapDispatch = dispatch => ({});
 
 export const Spicy = connect(mapSpicy, mapDispatch)(Flavors);
 export const Sweet = connect(mapSweet, mapDispatch)(Flavors);
