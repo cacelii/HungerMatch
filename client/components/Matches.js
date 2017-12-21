@@ -4,10 +4,7 @@ import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 export default class Matches extends Component {
   render() {
     const matches = this.props.navigation.state.params.data.businesses;
-    console.log(
-      'matches -->',
-      this.props.navigation.state.params.data.businesses
-    );
+
     const styles = StyleSheet.create({
       container: {
         flex: 1,

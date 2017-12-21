@@ -28,15 +28,14 @@ class Flavors extends Component {
       appSecret: process.env.YELP_CLIENT_SECRET
     };
 
-    // console logging the actual object YelpApi led to the solve
     const yelp = new Yelp(credentials);
 
     let { latitude, longitude } = this.state.position.coords;
 
-    let latlong = String(latitude) + ',' + String(longitude);
+    let latlong = `${String(latitude)},${String(longitude)}`;
     let params = {
       term: this.props.name,
-      location: '40.705132,-74.009258',
+      location: latlong,
       limit: '3'
     };
 
