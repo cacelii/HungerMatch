@@ -22,8 +22,6 @@ class Flavors extends Component {
   }
 
   fetchMatches() {
-    console.log('location', this.state.position.coords);
-
     let { latitude, longitude } = this.state.position.coords;
 
     let latlong = `${String(latitude)},${String(longitude)}`;
