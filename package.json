@@ -40,8 +40,6 @@
     "redux-thunk": "^2.2.0",
     "request": "^2.83.0",
     "sequelize": "^4.22.5",
-    "v3-yelp-api": "^1.0.2",
-    "watchman": "^0.1.8",
-    "yelp-fusion": "^1.0.3"
+    "watchman": "^0.1.8"
   }
 }

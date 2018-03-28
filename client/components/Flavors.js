@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import Yelp from 'v3-yelp-api';
+import http from 'axios';
 import secrets from '../../secrets';
 
 class Flavors extends Component {
@@ -23,12 +23,6 @@ class Flavors extends Component {
 
   fetchMatches() {
     console.log('location', this.state.position.coords);
-    const credentials = {
-      appId: process.env.YELP_CLIENT_ID,
-      appSecret: process.env.YELP_CLIENT_SECRET
-    };
-
-    const yelp = new Yelp(credentials);
 
     let { latitude, longitude } = this.state.position.coords;
 
@@ -39,8 +33,16 @@ class Flavors extends Component {
       limit: '3'
     };
 
-    return yelp
-      .search(params)
+    return Promise.resolve(process.env.YELP_API_KEY)
+      .then(apiKey =>
+        http({
+          method: 'get',
+          url: 'https://api.yelp.com/v3/businesses/search',
+          params: params,
+          headers: { Authorization: 'Bearer ' + apiKey }
+        })
+      )
+      .then(res => res.data)
       .then(results => {
         this.props.navigation.navigate('Matches', { data: results });
       })
@@ -78,8 +80,9 @@ class Flavors extends Component {
               }}
               onPress={this.fetchMatches.bind(this)}
             >
-              <Text style={{ fontSize: 15 }}>{`Give me ${this.props
-                .name}!`}</Text>
+              <Text style={{ fontSize: 15 }}>{`Give me ${
+                this.props.name
+              }!`}</Text>
             </TouchableOpacity>
           }
         </View>
